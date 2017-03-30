@@ -128,11 +128,15 @@ function Population(number) {
     }
     this.invaders = [];
     
-    var parent1dna = random(this.matingpool).dna;
-    var parent2dna = random(this.matingpool).dna;
+    var parent1 = random(this.matingpool);
+    this.matingpool = this.matingpool.filter(function(element) {
+      return element !== parent1;
+    });
+
+    var parent2 = random(this.matingpool);
     
     for (var i = 0; i < this.population_count; i++) {
-      var genes = parent1dna.mix(parent2dna);
+      var genes = parent1.dna.mix(parent2.dna);
       var dna = new DNA(genes);
       var child = new Invader(dna);
       this.invaders.push(child);
